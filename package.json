@@ -1,0 +1,18 @@
+{
+  "dependencies": {
+    "colors": "^1.4.0",
+    "express": "^5.2.1"
+  },
+  "name": "express",
+  "version": "1.0.0",
+  "main": "first_backendServer.js",
+  "type": "module",
+  "scripts": {
+    "start": "node first_backendServer",
+    "dev": "node --watch --env-file=.env first_backendServer"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": ""
+}
