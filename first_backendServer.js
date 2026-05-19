@@ -1,11 +1,17 @@
 import express from 'express'; // Import the Express library to create a web server
 import path from 'path'; // Import the path module to work with file and directory paths
+import { fileURLToPath } from 'url'; // Import the fileURLToPath function to convert a file URL to a path
 import posts from './routes/posts.js'; // Import the posts routes from the specified file
 import logger from './middleware/logger.js'; // Import the logger middleware from the specified file
 import errorHandler from './middleware/error.js'; // Import the error handling middleware from the specified file
 import notFound from './middleware/notFound.js'; // Import the not found middleware from the specified file
 
 const port = process.env.PORT || 3000; // Set the port to the value from the environment variable PORT or default to 3000
+
+// Get the directory name
+const __filename = fileURLToPath(import.meta.url); // Get the current file's path
+const __dirname = path.dirname(__filename); // Get the directory name of the current file
+
 const app = express(); // Create an instance of the Express application (server)
 
 // Body parser middleware to parse JSON request bodies
@@ -14,6 +20,9 @@ app.use(express.urlencoded({ extended: false })); // Use the built-in middleware
 
 // Logger middleware to log incoming requests
 app.use(logger); // Use the logger middleware for all incoming requests
+
+// Setup static folder to serve static files (like images, CSS, JavaScript) from the "public" directory
+app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/api/posts', posts); // Use the imported posts routes for any requests that start with "/api/posts"
 
