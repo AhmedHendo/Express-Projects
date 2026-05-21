@@ -1,7 +1,9 @@
 {
   "dependencies": {
     "colors": "^1.4.0",
-    "express": "^5.2.1"
+    "dotenv": "^17.4.2",
+    "express": "^5.2.1",
+    "pg": "^8.21.0"
   },
   "name": "express",
   "version": "1.0.0",
