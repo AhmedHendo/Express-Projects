@@ -1,15 +1,4 @@
 import { getPostsDb, getPostDb, createPostDb, updatePostDb, deletePostDb } from '../models/postModels.js';
-// let posts = [
-//     {
-//         id: 1, title: 'Post One'
-//     },
-//     {
-//         id: 2, title: 'Post Two'
-//     },
-//     {
-//         id: 3, title: 'Post Three'
-//     }
-// ];
 
 // @desc Get all post
 // @route GET /api/posts
@@ -59,19 +48,19 @@ export const getPost = async (req, res, next) => {
 
 export const createPost = async (req, res, next) => {
     try {
-        let result = await getPostsDb();
-        let posts = result.rows;
-
-        const newPost = {
-            id: posts.length + 1,
-            title: req.body.title
-        };
-
-        if (!newPost.title) {
+        if (!req.body.title) {
             const error = new Error(`Title is required.`);
             error.status = 400;
             return next(error);
         }
+
+        let result = await getPostsDb();
+        let posts = result.rows;
+
+        const newPost = {
+            id: posts[posts.length - 1].id + 1,
+            title: req.body.title
+        };
 
         await createPostDb(newPost.id, newPost.title);
         result = await getPostsDb();
@@ -128,7 +117,7 @@ export const deletePost = async (req, res, next) => {
         await deletePostDb(id);
         result = await getPostsDb();
         const posts = result.rows;
-        
+
         res.status(200).json(posts);
     } catch (error) {
         next(error);
