@@ -5,9 +5,10 @@ import { getPostsDb, getPostDb, createPostDb, updatePostDb, deletePostDb } from 
 
 export const getPosts = async (req, res, next) => {
     try {
-        const limit = Number.parseInt(req.query.limit, 10);
+        const limit = Number.parseInt(req.query.limit, 10) || null;
+        const offset = Number.parseInt(req.query.offset, 10) || 0;
 
-        const result = await getPostsDb();
+        const result = await getPostsDb(limit, offset);
         const posts = result.rows;
 
         if (!isNaN(limit) && limit > 0) {

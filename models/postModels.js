@@ -1,7 +1,9 @@
 import { pool } from '../config/db.js';
 
-export const getPostsDb = () => {
-    return pool.query('Select * from posts order by id asc');
+export const getPostsDb = (limit, offset) => {
+    return pool.query('Select * from posts order by id asc LIMIT $1 OFFSET $2',
+        [limit, offset]
+    );
 };
 
 export const getPostDb = (id) => {

@@ -1,7 +1,9 @@
 import { pool } from '../config/db.js';
 
-export const getUsersDb = () => {
-    return pool.query('Select * from users');
+export const getUsersDb = (limit, offset) => {
+    return pool.query('Select user_id, user_name, user_email from users LIMIT $1 OFFSET $2',
+        [limit, offset]
+    );
 };
 
 export const getUserByEmail = (email) => {

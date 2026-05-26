@@ -1,5 +1,5 @@
 import express from 'express';
-import { checkUser, refreshAccessToken, deleteRefreshToken } from '../controllers/authController.js';
+import { checkUser, refreshAccessToken, revokeRefreshToken } from '../controllers/authController.js';
 
 const router = express.Router();
 
@@ -10,6 +10,6 @@ router.post('/login', checkUser);
 router.get('/refreshToken', refreshAccessToken);
 
 // Delete refresh token
-router.delete('/refreshToken', deleteRefreshToken);
+router.delete('/refreshToken', revokeRefreshToken);
 
 export default router;

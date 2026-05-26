@@ -62,7 +62,7 @@ export const refreshAccessToken = async (req, res, next) => {
 // @desc Delete refresh token
 // @route DELETE /api/auth/refreshToken
 
-export const deleteRefreshToken = async (req, res, next) => {
+export const revokeRefreshToken = async (req, res, next) => {
 try {
     res.clearCookie('refreshToken');
     res.status(200).json({ message: 'Refresh token deleted' });

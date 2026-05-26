@@ -6,9 +6,10 @@ import bcrypt from 'bcrypt';
 
 export const getUsers = async (req, res, next) => {
     try {
-        const limit = Number.parseInt(req.query.limit, 10);
+        const limit = Number.parseInt(req.query.limit, 10) || null;
+        const offset = Number.parseInt(req.query.offset, 10) || 0;
 
-        const result = await getUsersDb();
+        const result = await getUsersDb(limit, offset);
         const users = result.rows;
 
         if (!isNaN(limit) && limit > 0) {
